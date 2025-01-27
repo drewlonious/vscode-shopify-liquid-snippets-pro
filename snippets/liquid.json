@@ -1,305 +1,945 @@
 {
-  "Tag if-": {
-    "prefix": "if-",
-    "description": "Control flow tag: if (whitespace stripped)",
-    "body": ["{%- if ${1:condition} -%}", "\t$2", "{%- endif -%}"]
+  "Liquid Tags": {
+    "Control Flow": {
+      "Tag if": {
+        "prefix": "if",
+        "description": "Control flow tag: if",
+        "body": ["{% if ${1:condition} %}", "\t$2", "{% endif %}"]
+      },
+      "Tag if (whitespace)": {
+        "prefix": "if-",
+        "description": "Control flow tag: if, whitespaced",
+        "body": ["{%- if ${1:condition} -%}", "\t$2", "{%- endif -%}"]
+      },
+      "Tag else": {
+        "prefix": "else",
+        "description": "Control flow tag: else",
+        "body": ["{% else %}", "\t"]
+      },
+      "Tag else (whitespace)": {
+        "prefix": "else-",
+        "description": "Control flow tag: else, whitespaced",
+        "body": ["{%- else -%}", "\t"]
+      },
+      "Tag elsif": {
+        "prefix": "elsif",
+        "description": "Control flow tag: elsif",
+        "body": ["{% elsif ${1:condition} %}", "\t"]
+      },
+      "Tag elsif (whitespace)": {
+        "prefix": "elsif-",
+        "description": "Control flow tag: elsif, whitespaced",
+        "body": ["{%- elsif ${1:condition} -%}", "\t"]
+      },
+      "Tag if else": {
+        "prefix": "ifelse",
+        "description": "Control flow tag: if else",
+        "body": [
+          "{% if ${1:condition} %}",
+          "\t$2",
+          "{% else %}",
+          "\t$3",
+          "{% endif %}"
+        ]
+      },
+      "Tag if else (whitespace)": {
+        "prefix": "ifelse-",
+        "description": "Control flow tag: if else, whitespaced",
+        "body": [
+          "{%- if ${1:condition} -%}",
+          "\t$2",
+          "{%- else -%}",
+          "\t$3",
+          "{%- endif -%}"
+        ]
+      },
+      "Tag unless": {
+        "prefix": "unless",
+        "description": "Control flow tag: unless",
+        "body": ["{% unless ${1:condition} %}", "\t$2", "{% endunless %}"]
+      },
+      "Tag unless (whitespace)": {
+        "prefix": "unless-",
+        "description": "Control flow tag: unless, whitespaced",
+        "body": ["{%- unless ${1:condition} -%}", "\t$2", "{%- endunless -%}"]
+      },
+      "Tag case": {
+        "prefix": "case",
+        "description": "Control flow tag: case",
+        "body": [
+          "{% case ${1:variable} %}",
+          "\t{% when ${2:condition} %}",
+          "\t\t$3",
+          "\t{% else %}",
+          "\t\t$4",
+          "{% endcase %}"
+        ]
+      },
+      "Tag case (whitespace)": {
+        "prefix": "case-",
+        "description": "Control flow tag: case, whitespaced",
+        "body": [
+          "{%- case ${1:variable} -%}",
+          "\t{%- when ${2:condition} -%}",
+          "\t\t$3",
+          "\t{%- else -%}",
+          "\t\t$4",
+          "{%- endcase -%}"
+        ]
+      },
+      "Tag when": {
+        "prefix": "when",
+        "description": "Control flow tag: when",
+        "body": ["{% when ${1:condition} %}", "$0"]
+      },
+      "Tag when (whitespace)": {
+        "prefix": "when-",
+        "description": "Control flow tag: when, whitespaced",
+        "body": ["{%- when ${1:condition} -%}", "$0"]
+      }
+    },
+
+    "Iteration": {
+      "Tag for": {
+        "prefix": "for",
+        "description": "Iteration tag: for",
+        "body": [
+          "{% for ${1:item} in ${2:collection} %}",
+          "\t$3",
+          "{% endfor %}"
+        ]
+      },
+      "Tag for (whitespace)": {
+        "prefix": "for-",
+        "description": "Iteration tag: for, whitespaced",
+        "body": [
+          "{%- for ${1:item} in ${2:collection} -%}",
+          "\t$3",
+          "{%- endfor -%}"
+        ]
+      },
+      "Tag tablerow": {
+        "prefix": "tablerow",
+        "description": "Iteration tag: tablerow",
+        "body": [
+          "{% tablerow ${1:item} in ${2:collection} cols: ${3:2} %}",
+          "\t$4",
+          "{% endtablerow %}"
+        ]
+      },
+      "Tag tablerow (whitespace)": {
+        "prefix": "tablerow-",
+        "description": "Iteration tag: tablerow, whitespaced",
+        "body": [
+          "{%- tablerow ${1:item} in ${2:collection} cols: ${3:2} -%}",
+          "\t$4",
+          "{%- endtablerow -%}"
+        ]
+      },
+      "Tag cycle": {
+        "prefix": "cycle",
+        "description": "Iteration tag: cycle",
+        "body": ["{% cycle '${1:odd}', '${2:even}' %}"]
+      },
+      "Tag cycle (whitespace)": {
+        "prefix": "cycle-",
+        "description": "Iteration tag: cycle, whitespaced",
+        "body": ["{%- cycle '${1:odd}', '${2:even}' -%}"]
+      },
+      "Tag cycle group": {
+        "prefix": "cyclegroup",
+        "description": "Iteration tag: cycle group",
+        "body": ["{% cycle '${1:group name}': '${2:odd}', '${3:even}' %}"]
+      },
+      "Tag cycle group (whitespace)": {
+        "prefix": "cyclegroup-",
+        "description": "Iteration tag: cycle group, whitespaced",
+        "body": ["{%- cycle '${1:group name}': '${2:odd}', '${3:even}' -%}"]
+      },
+      "Tag break": {
+        "prefix": "break",
+        "description": "Iteration tag: break",
+        "body": ["{% break %}"]
+      },
+      "Tag continue": {
+        "prefix": "continue",
+        "description": "Iteration tag: continue",
+        "body": ["{% continue %}"]
+      },
+      "Tag continue (whitespace)": {
+        "prefix": "continue-",
+        "description": "Iteration tag: continue, whitespaced",
+        "body": ["{%- continue -%}"]
+      },
+      "Tag Option limit": {
+        "prefix": "limit",
+        "description": "For loops option",
+        "body": ["limit: ${1:5}"]
+      },
+      "Tag Option offset": {
+        "prefix": "offset",
+        "description": "For loops option",
+        "body": ["offset: ${1:0}"]
+      },
+      "Tag Option reversed": {
+        "prefix": "reversed",
+        "description": "For loops option",
+        "body": ["reversed"]
+      }
+    },
+
+    "Theme": {
+      "Tag section": {
+        "prefix": "section",
+        "description": "Theme section tag",
+        "body": ["{% section '${1:section-name}' %}"]
+      },
+      "Tag render": {
+        "prefix": "render",
+        "description": "Theme tag: render",
+        "body": ["{% render '${1:snippet}' %}"]
+      },
+      "Tag render with parameters": {
+        "prefix": "renderwith",
+        "description": "Theme tag: render with parameters",
+        "body": ["{% render '${1:snippet}', ${2:variable}: ${3:value} %}"]
+      },
+      "Tag include": {
+        "prefix": "include",
+        "description": "Theme tag: include",
+        "body": ["{% include '${1:snippet}' %}"]
+      },
+      "Tag include with parameters": {
+        "prefix": "includewith",
+        "description": "Theme tag: include with parameters",
+        "body": ["{% include '${1:snippet}', ${2:variable}: ${3:value} %}"]
+      },
+      "Tag layout": {
+        "prefix": "layout",
+        "description": "Theme tag: layout",
+        "body": ["{% layout '${1:layout}' %}"]
+      },
+      "Tag no layout": {
+        "prefix": "layoutnone",
+        "description": "Theme tag: layout none",
+        "body": ["{% layout none %}"]
+      },
+      "Tag paginate": {
+        "prefix": "paginate",
+        "description": "Theme tag: paginate",
+        "body": [
+          "{% paginate ${1:collection.products} by ${2:12} %}",
+          "\t{% for ${3:product} in ${1:collection.products} %}",
+          "\t\t$4",
+          "\t{% endfor %}",
+          "{% endpaginate %}"
+        ]
+      },
+      "Tag raw": {
+        "prefix": "raw",
+        "description": "Theme tag: raw",
+        "body": ["{% raw %}$1{% endraw %}"]
+      },
+      "Tag schema": {
+        "prefix": "schema",
+        "description": "Schema tag: schema",
+        "body": ["{% schema %}", "\t{", "\t\t$1", "\t}", "{% endschema %}"]
+      },
+      "Tag stylesheet": {
+        "prefix": "stylesheet",
+        "description": "Stylesheet tag: stylesheet",
+        "body": ["{% stylesheet %}", "\t$1", "{% endstylesheet %}"]
+      },
+      "Tag stylesheet for scss": {
+        "prefix": "stylesheet_scss",
+        "description": "Stylesheet tag: stylesheet for scss",
+        "body": ["{% stylesheet '${1:scss}' %}", "\t$2", "{% endstylesheet %}"]
+      },
+      "Tag javascript": {
+        "prefix": "javascript",
+        "description": "Javascript tag: javascript",
+        "body": ["{% javascript %}", "\t$4", "{% endjavascript %}"]
+      }
+    },
+
+    "Variables": {
+      "Tag assign": {
+        "prefix": "assign",
+        "description": "Variable tag: assign",
+        "body": ["{% assign ${1:variable} = ${2:value} %}"]
+      },
+      "Tag assign (whitespace)": {
+        "prefix": "assign-",
+        "description": "Variable tag: assign, whitespaced",
+        "body": ["{%- assign ${1:variable} = ${2:value} -%}"]
+      },
+      "Tag increment": {
+        "prefix": "increment",
+        "description": "Variable tag: increment",
+        "body": ["{% increment ${1:variable} %}"]
+      },
+      "Tag decrement": {
+        "prefix": "decrement",
+        "description": "Variable tag: decrement",
+        "body": ["{% decrement ${1:variable} %}"]
+      },
+      "Tag capture": {
+        "prefix": "capture",
+        "description": "Variable tag: capture",
+        "body": ["{% capture ${1:variable} %}$2{% endcapture %}"]
+      },
+      "Tag capture (whitespace)": {
+        "prefix": "capture-",
+        "description": "Variable tag: capture, whitespaced",
+        "body": ["{%- capture ${1:variable} -%}$2{%- endcapture -%}"]
+      }
+    },
+
+    "Advanced": {
+      "Tag liquid": {
+        "prefix": "liquid",
+        "description": "Liquid tag: liquid",
+        "body": ["{% liquid %}", "\t$1", "{% endliquid %}"]
+      },
+      "Tag comment, whitespaced": {
+        "prefix": "comment-",
+        "description": "Comment tag: comment, whitespaced",
+        "body": ["{%- comment -%}$1{%- endcomment -%}"]
+      }
+    }
   },
-  "Tag if": {
-    "prefix": "if",
-    "description": "Control flow tag: if",
-    "body": ["{% if ${1:condition} %}", "\t$2", "{% endif %}"]
+
+  "Filters": {
+    "Array": {
+      "Filter where": {
+        "prefix": "where",
+        "description": "Array filter: where",
+        "body": "| where: '${1:property}', ${2:value}"
+      },
+      "Filter map": {
+        "prefix": "map",
+        "description": "Array filter: map",
+        "body": "| map: '${1:key}'"
+      },
+      "Filter join": {
+        "prefix": "join",
+        "description": "Array filter: join",
+        "body": "| join: '${1:, }'"
+      },
+      "Filter first": {
+        "prefix": "first",
+        "description": "Array filter: first",
+        "body": "| first"
+      },
+      "Filter last": {
+        "prefix": "last",
+        "description": "Array filter: last",
+        "body": "| last"
+      },
+      "Filter concat": {
+        "prefix": "concat",
+        "description": "Array filter: concat",
+        "body": "| concat: ${1:array}"
+      },
+      "Filter reverse": {
+        "prefix": "reverse",
+        "description": "Array filter or String filter: reverse",
+        "body": "| reverse"
+      },
+      "Filter size": {
+        "prefix": "size",
+        "description": "Array filter: size",
+        "body": "| size"
+      },
+      "Filter sort": {
+        "prefix": "sort",
+        "description": "Array filter: sort",
+        "body": "| sort: '${1:key}'"
+      },
+      "Filter uniq": {
+        "prefix": "uniq",
+        "description": "Array filter: uniq",
+        "body": "| uniq"
+      }
+    },
+    "String": {
+      "Filter handle": {
+        "prefix": "handle",
+        "description": "String filter: handle",
+        "body": "| handle"
+      },
+      "Filter t": {
+        "prefix": "t",
+        "description": "Translation filter",
+        "body": "| t: ${1:key}"
+      },
+      "Filter append": {
+        "prefix": "append",
+        "description": "String filter: append",
+        "body": "| append: '${1:string}'"
+      },
+      "Filter camelcase": {
+        "prefix": "camelcase",
+        "description": "String filter: camelcase",
+        "body": "| camelcase"
+      },
+      "Filter capitalize": {
+        "prefix": "capitalize",
+        "description": "String filter: capitalize",
+        "body": "| capitalize"
+      },
+      "Filter downcase": {
+        "prefix": "downcase",
+        "description": "String filter: downcase",
+        "body": "| downcase"
+      },
+      "Filter escape": {
+        "prefix": "escape",
+        "description": "String filter: escape",
+        "body": "| escape"
+      },
+      "Filter handleize": {
+        "prefix": "handleize",
+        "description": "String filter: handleize",
+        "body": "| handleize"
+      },
+      "Filter md5": {
+        "prefix": "md5",
+        "description": "String filter: md5",
+        "body": "| md5"
+      },
+      "Filter newline to br": {
+        "prefix": "newline_to_br",
+        "description": "String filter: newline to br",
+        "body": "| newline_to_br"
+      },
+      "Filter pluralize": {
+        "prefix": "pluralize",
+        "description": "String filter: pluralize",
+        "body": "| pluralize: '${1:item}', '${2:items}'"
+      },
+      "Filter prepend": {
+        "prefix": "prepend",
+        "description": "String filter: prepend",
+        "body": "| prepend: '${1:string}'"
+      },
+      "Filter remove": {
+        "prefix": "remove",
+        "description": "String filter: remove",
+        "body": "| remove: '${1:string}'"
+      },
+      "Filter remove first": {
+        "prefix": "remove_first",
+        "description": "String filter: remove first",
+        "body": "| remove_first: '${1:string}'"
+      },
+      "Filter replace": {
+        "prefix": "replace",
+        "description": "String filter: replace",
+        "body": "| replace: '${1:target}', '${2:replace}'"
+      },
+      "Filter replace first": {
+        "prefix": "replace_first",
+        "description": "String filter: replace first",
+        "body": "| replace_first: '${1:target}', '${2:replace}'"
+      },
+      "Filter slice": {
+        "prefix": "slice",
+        "description": "String filter: slice",
+        "body": "| slice: ${1:0}, ${2:5}"
+      },
+      "Filter split": {
+        "prefix": "split",
+        "description": "String filter: split",
+        "body": "| split: '${1:,}'"
+      },
+      "Filter strip": {
+        "prefix": "strip",
+        "description": "String filter: strip",
+        "body": "| strip"
+      },
+      "Filter lstrip": {
+        "prefix": "lstrip",
+        "description": "String filter: lstrip",
+        "body": "| lstrip"
+      },
+      "Filter rstrip": {
+        "prefix": "rstrip",
+        "description": "String filter: rstrip",
+        "body": "| rstrip"
+      },
+      "Filter strip html": {
+        "prefix": "strip_html",
+        "description": "String filter: strip html",
+        "body": "| strip_html"
+      },
+      "Filter strip newlines": {
+        "prefix": "strip_newlines",
+        "description": "String filter: strip newlines",
+        "body": "| strip_newlines"
+      },
+      "Filter truncate": {
+        "prefix": "truncate",
+        "description": "String filter: truncate",
+        "body": "| truncate: ${1:20}, '${2:...}'"
+      },
+      "Filter truncatewords": {
+        "prefix": "truncatewords",
+        "description": "String filter: truncatewords",
+        "body": "| truncatewords: ${1:5}, '${2:...}'"
+      },
+      "Filter upcase": {
+        "prefix": "upcase",
+        "description": "String filter: upcase",
+        "body": "| upcase"
+      },
+      "Filter url encode": {
+        "prefix": "url_encode",
+        "description": "String filter: url encode",
+        "body": "| url_encode"
+      },
+      "Filter url escape": {
+        "prefix": "url_escape",
+        "description": "String filter: url escape",
+        "body": "| url_escape"
+      },
+      "Filter url param escape": {
+        "prefix": "url_param_escape",
+        "description": "String filter: url param escape",
+        "body": "| url_param_escape"
+      }
+    },
+    "Math": {
+      "Filter money": {
+        "prefix": "money",
+        "description": "Money filter: money",
+        "body": "| money"
+      },
+      "Filter abs": {
+        "prefix": "abs",
+        "description": "Math filter: abs",
+        "body": "| abs"
+      },
+      "Filter ceil": {
+        "prefix": "ceil",
+        "description": "Math filter: ceil",
+        "body": "| ceil"
+      },
+      "Filter divided by": {
+        "prefix": "divided_by",
+        "description": "Math filter: divided by",
+        "body": "| divided_by: ${1:2}"
+      },
+      "Filter floor": {
+        "prefix": "floor",
+        "description": "Math filter: floor",
+        "body": "| floor"
+      },
+      "Filter minus": {
+        "prefix": "minus",
+        "description": "Math filter: minus",
+        "body": "| minus: ${1:1}"
+      },
+      "Filter plus": {
+        "prefix": "plus",
+        "description": "Math filter: plus",
+        "body": "| plus: ${1:1}"
+      },
+      "Filter round": {
+        "prefix": "round",
+        "description": "Math filter: round",
+        "body": "| round: ${1:0}"
+      },
+      "Filter times": {
+        "prefix": "times",
+        "description": "Math filter: times",
+        "body": "| times: ${1:1}"
+      },
+      "Filter modulo": {
+        "prefix": "modulo",
+        "description": "Math filter: modulo",
+        "body": "| modulo: ${1:2}"
+      },
+      "Filter money_with_currency": {
+        "prefix": "money_with_currency",
+        "description": "Money filter: money with currency",
+        "body": "| money_with_currency"
+      },
+      "Filter money_without_trailing_zeros": {
+        "prefix": "money_without_trailing_zeros",
+        "description": "Money filter: money without trailing zeros",
+        "body": "| money_without_trailing_zeros"
+      },
+      "Filter money_without_currency": {
+        "prefix": "money_without_currency",
+        "description": "Money filter: money without currency",
+        "body": "| money_without_currency"
+      }
+    },
+    "HTML": {
+      "Filter img tag": {
+        "prefix": "img_tag",
+        "description": "HTML filter: img tag",
+        "body": "| img_tag"
+      },
+      "Filter img tag with parameters": {
+        "prefix": "img_tag_param",
+        "description": "HTML filter: img tag with parameters",
+        "body": "| img_tag: '${1:alt}', '${2:class}'"
+      },
+      "Filter script tag": {
+        "prefix": "script_tag",
+        "description": "HTML filter: script tag",
+        "body": "| script_tag"
+      },
+      "Filter stylesheet tag": {
+        "prefix": "stylesheet_tag",
+        "description": "HTML filter: stylesheet tag",
+        "body": "| stylesheet_tag"
+      },
+      "Filter asset_url": {
+        "prefix": "asset_url",
+        "description": "URL filter: asset url",
+        "body": "| asset_url"
+      },
+      "Filter asset_img_url": {
+        "prefix": "asset_img_url",
+        "description": "URL filter: asset img url",
+        "body": "| asset_img_url: '${1:medium}'"
+      },
+      "Filter img_url": {
+        "prefix": "img_url",
+        "description": "URL filter: img url",
+        "body": "| img_url: '${1:medium}'"
+      }
+    }
   },
-  "Tag else-": {
-    "prefix": "else-",
-    "description": "Control flow tag: else (whitespace stripped)",
-    "body": ["{%- else -%}", "\t"]
-  },
-  "Tag else": {
-    "prefix": "else",
-    "description": "Control flow tag: else",
-    "body": ["{% else %}", "\t"]
-  },
-  "Tag elsif-": {
-    "prefix": "elsif-",
-    "description": "Control flow tag: elsif (whitespace stripped)",
-    "body": ["{%- elsif ${1:condition} -%}", "\t"]
-  },
-  "Tag elsif": {
-    "prefix": "elsif",
-    "description": "Control flow tag: elsif",
-    "body": ["{% elsif ${1:condition} %}", "\t"]
-  },
-  "Tag if else-": {
-    "prefix": "ifelse-",
-    "description": "Control flow tag: if else (whitespace stripped)",
-    "body": [
-      "{%- if ${1:condition} -%}",
-      "\t$2",
-      "{%- else -%}",
-      "\t$3",
-      "{%- endif -%}"
-    ]
-  },
-  "Tag if else": {
-    "prefix": "ifelse",
-    "description": "Control flow tag: if else",
-    "body": [
-      "{% if ${1:condition} %}",
-      "\t$2",
-      "{% else %}",
-      "\t$3",
-      "{% endif %}"
-    ]
-  },
-  "Tag unless-": {
-    "prefix": "unless-",
-    "description": "Control flow tag: unless (whitespace stripped)",
-    "body": ["{%- unless ${1:condition} -%}", "\t$2", "{%- endunless -%}"]
-  },
-  "Tag unless": {
-    "prefix": "unless",
-    "description": "Control flow tag: unless",
-    "body": ["{% unless ${1:condition} %}", "\t$2", "{% endunless %}"]
-  },
-  "Tag case-": {
-    "prefix": "case-",
-    "description": "Control flow tag: case (whitespace stripped)",
-    "body": [
-      "{%- case ${1:variable} -%}",
-      "\t{%- when ${2:condition} -%}",
-      "\t\t$3",
-      "\t{%- else -%}",
-      "\t\t$4",
-      "{%- endcase -%}"
-    ]
-  },
-  "Tag case": {
-    "prefix": "case",
-    "description": "Control flow tag: case",
-    "body": [
-      "{% case ${1:variable} %}",
-      "\t{% when ${2:condition} %}",
-      "\t\t$3",
-      "\t{% else %}",
-      "\t\t$4",
-      "{% endcase %}"
-    ]
-  },
-  "Tag when-": {
-    "prefix": "when-",
-    "description": "Control flow tag: when (whitespace stripped)",
-    "body": ["{%- when ${1:condition} -%}", "$0"]
-  },
-  "Tag when": {
-    "prefix": "when",
-    "description": "Control flow tag: when",
-    "body": ["{% when ${1:condition} %}", "$0"]
-  },
-  "Tag cycle-": {
-    "prefix": "cycle-",
-    "description": "Iteration tag: cycle (whitespace stripped)",
-    "body": ["{%- cycle '${1:odd}', '${2:even}' -%}"]
-  },
-  "Tag cycle": {
-    "prefix": "cycle",
-    "description": "Iteration tag: cycle",
-    "body": ["{% cycle '${1:odd}', '${2:even}' %}"]
-  },
-  "Tag cycle group-": {
-    "prefix": "cyclegroup-",
-    "description": "Iteration tag: cycle group (whitespace stripped)",
-    "body": ["{%- cycle '${1:group name}': '${2:odd}', '${3:even}' -%}"]
-  },
-  "Tag cycle group": {
-    "prefix": "cyclegroup",
-    "description": "Iteration tag: cycle group",
-    "body": ["{% cycle '${1:group name}': '${2:odd}', '${3:even}' %}"]
-  },
-  "Tag for-": {
-    "prefix": "for-",
-    "description": "Iteration tag: for (whitespace stripped)",
-    "body": [
-      "{%- for ${1:item} in ${2:collection} -%}",
-      "\t$3",
-      "{%- endfor -%}"
-    ]
-  },
-  "Tag for": {
-    "prefix": "for",
-    "description": "Iteration tag: for",
-    "body": ["{% for ${1:item} in ${2:collection} %}", "\t$3", "{% endfor %}"]
-  },
-  "Tag Option limit": {
-    "prefix": "limit",
-    "description": "For loops option",
-    "body": ["limit: ${1:5}"]
-  },
-  "Tag Option offset": {
-    "prefix": "offset",
-    "description": "For loops option",
-    "body": ["offset: ${1:0}"]
-  },
-  "Tag Option reversed": {
-    "prefix": "reversed",
-    "description": "For loops option",
-    "body": ["reversed"]
-  },
-  "Tag break": {
-    "prefix": "break",
-    "description": "Iteration tag: break",
-    "body": ["{% break %}"]
-  },
-  "Tag continue": {
-    "prefix": "continue",
-    "description": "Iteration tag: continue",
-    "body": ["{% continue %}"]
-  },
-  "Tag tablerow-": {
-    "prefix": "tablerow-",
-    "description": "Iteration tag: tablerow (whitespace stripped)",
-    "body": [
-      "{%- tablerow ${1:item} in ${2:collection} cols: ${3:2} -%}",
-      "\t$4",
-      "{%- endtablerow -%}"
-    ]
-  },
-  "Tag tablerow": {
-    "prefix": "tablerow",
-    "description": "Iteration tag: tablerow",
-    "body": [
-      "{% tablerow ${1:item} in ${2:collection} cols: ${3:2} %}",
-      "\t$4",
-      "{% endtablerow %}"
-    ]
-  },
-  "Tag assign-": {
-    "prefix": "assign-",
-    "description": "Variable tag: assign (whitespace stripped)",
-    "body": ["{%- assign ${1:variable} = ${2:value} -%}"]
-  },
-  "Tag assign": {
-    "prefix": "assign",
-    "description": "Variable tag: assign",
-    "body": ["{% assign ${1:variable} = ${2:value} %}"]
-  },
-  "Tag increment-": {
-    "prefix": "increment-",
-    "description": "Variable tag: increment (whitespace stripped)",
-    "body": ["{%- increment ${1:variable} -%}"]
-  },
-  "Tag increment": {
-    "prefix": "increment",
-    "description": "Variable tag: increment",
-    "body": ["{% increment ${1:variable} %}"]
-  },
-  "Tag decrement-": {
-    "prefix": "decrement-",
-    "description": "Variable tag: decrement (whitespace stripped)",
-    "body": ["{%- decrement ${1:variable} -%}"]
-  },
-  "Tag decrement": {
-    "prefix": "decrement",
-    "description": "Variable tag: decrement",
-    "body": ["{% decrement ${1:variable} %}"]
-  },
-  "Tag capture-": {
-    "prefix": "capture-",
-    "description": "Variable tag: capture (whitespace stripped)",
-    "body": ["{%- capture ${1:variable} -%}$2{%- endcapture -%}"]
-  },
-  "Tag capture": {
-    "prefix": "capture",
-    "description": "Variable tag: capture",
-    "body": ["{% capture ${1:variable} %}$2{% endcapture %}"]
-  },
-  "Tag include-": {
-    "prefix": "include-",
-    "description": "Theme tag: include (whitespace stripped)",
-    "body": ["{%- include '${1:snippet}' -%}"]
-  },
-  "Tag include": {
-    "prefix": "include",
-    "description": "Theme tag: include",
-    "body": ["{% include '${1:snippet}' %}"]
-  },
-  "Tag include with parameters-": {
-    "prefix": "includewith-",
-    "description": "Theme tag: include with parameters (whitespace stripped)",
-    "body": ["{%- include '${1:snippet}', ${2:variable}: ${3:value} -%}"]
-  },
-  "Tag include with parameters": {
-    "prefix": "includewith",
-    "description": "Theme tag: include with parameters",
-    "body": ["{% include '${1:snippet}', ${2:variable}: ${3:value} %}"]
-  },
-  "Tag render-": {
-    "prefix": "render-",
-    "description": "Theme tag: render (whitespace stripped)",
-    "body": ["{%- render '${1:snippet}' -%}"]
-  },
-  "Tag render": {
-    "prefix": "render",
-    "description": "Theme tag: render",
-    "body": ["{% render '${1:snippet}' %}"]
-  },
-  "Tag render with parameters-": {
-    "prefix": "renderwith-",
-    "description": "Theme tag: render with parameters (whitespace stripped)",
-    "body": ["{%- render '${1:snippet}', ${2:variable}: ${3:value} -%}"]
-  },
-  "Tag render with parameters": {
-    "prefix": "renderwith",
-    "description": "Theme tag: render with parameters",
-    "body": ["{% render '${1:snippet}', ${2:variable}: ${3:value} %}"]
-  },
-  "Filter size": {
-    "prefix": "size",
-    "description": "Returns the size of an array or string",
-    "body": ["| size"]
-  },
-  "Filter money": {
-    "prefix": "money",
-    "description": "Formats a price according to the shop's currency settings",
-    "body": ["| money"]
-  },
-  "Filter money_with_currency": {
-    "prefix": "moneycurrency",
-    "description": "Formats a price with the currency symbol according to the shop's currency settings",
-    "body": ["| money_with_currency"]
-  },
-  "Filter date": {
-    "prefix": "date",
-    "description": "Converts a timestamp into another date format",
-    "body": ["| date: '${1:%B %d, %Y}'"]
-  },
-  "Filter default": {
-    "prefix": "default",
-    "description": "Sets a default value if the input is empty or nil",
-    "body": ["| default: ${1:'Default value'}"]
-  },
-  "Filter escape": {
-    "prefix": "escape",
-    "description": "Escapes HTML characters in a string",
-    "body": ["| escape"]
-  },
-  "Filter img_url": {
-    "prefix": "imgurl",
-    "description": "Returns the URL of an image from the product",
-    "body": ["| img_url: '${1:medium}'"]
-  },
-  "Filter json": {
-    "prefix": "json",
-    "description": "Converts an object into JSON format",
-    "body": ["| json"]
-  },
-  "Filter pluralize": {
-    "prefix": "pluralize",
-    "description": "Outputs the singular or plural version of a string",
-    "body": ["| pluralize: '${1:item}', '${2:items}'"]
-  },
-  "Filter strip_html": {
-    "prefix": "striphtml",
-    "description": "Strips all HTML tags from a string",
-    "body": ["| strip_html"]
+
+  "Schema Settings": {
+    "_schema": {
+      "prefix": "_schema",
+      "body": [
+        "{% schema %}",
+        "\t{",
+        "\t\t\"name\": \"$1\",",
+        "\t\t\"class\": \"$2\",",
+        "\t\t\"settings\": [",
+        "\t\t$3",
+        "\t\t]",
+        "\t}",
+        "{% endschema %}"
+      ]
+    },
+    "_blocks": {
+      "prefix": "_blocks",
+      "body": [
+        "\"blocks\": [",
+        "\t{",
+        "\t\t\"type\": \"$1\",",
+        "\t\t\"name\": \"$2\",",
+        "\t\t\"settings\": [",
+        "\t\t\t$3",
+        "\t\t]",
+        "\t},$4",
+        "]"
+      ]
+    },
+    "_text": {
+      "prefix": "_text",
+      "body": [
+        "{",
+        "\t\"type\": \"text\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"default\": \"$3\",",
+        "\t\"info\": \"$4\",",
+        "\t\"placeholder\": \"$5\"",
+        "},$6"
+      ]
+    },
+    "_textarea": {
+      "prefix": "_textarea",
+      "body": [
+        "{",
+        "\t\"type\": \"textarea\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"default\": \"$3\",",
+        "\t\"info\": \"$4\",",
+        "\t\"placeholder\": \"$5\"",
+        "},$6"
+      ]
+    },
+    "_image_picker": {
+      "prefix": "_image_picker",
+      "body": [
+        "{",
+        "\t\"type\": \"image_picker\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\"",
+        "},$3"
+      ]
+    },
+    "_radio": {
+      "prefix": "_radio",
+      "body": [
+        "{",
+        "\t\"type\": \"radio\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"options\": [",
+        "\t\t{ \"value\": \"$6\", \"label\": \"$7\" }",
+        "\t],",
+        "\t\"default\": \"$3\",",
+        "\t\"info\": \"$4\"",
+        "},$5"
+      ]
+    },
+    "_select": {
+      "prefix": "_select",
+      "body": [
+        "{",
+        "\t\"type\": \"select\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"options\": [",
+        "\t\t{",
+        "\t\t\"group\": \"$6\",",
+        "\t\t\"value\": \"$7\",",
+        "\t\t\"label\": \"$8\"",
+        "\t\t}",
+        "\t],",
+        "\t\"default\": \"$3\",",
+        "\t\"info\": \"$4\"",
+        "},$5"
+      ]
+    },
+    "_checkbox": {
+      "prefix": "_checkbox",
+      "body": [
+        "{",
+        "\t\"type\": \"checkbox\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"default\": ${3|false,true|},",
+        "\t\"info\": \"$4\"",
+        "},$5"
+      ]
+    },
+    "_range": {
+      "prefix": "_range",
+      "body": [
+        "{",
+        "\t\"type\": \"range\",",
+        "\t\"id\": \"$1\",",
+        "\t\"min\": \"$2\",",
+        "\t\"max\": \"$3\",",
+        "\t\"step\": \"$4\",",
+        "\t\"unit\": \"$5\",",
+        "\t\"label\": \"$6\",",
+        "\t\"default\": \"$7\"",
+        "},$8"
+      ]
+    },
+    "_color": {
+      "prefix": "_color",
+      "body": [
+        "{",
+        "\t\"type\": \"color\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"default\": \"$3\",",
+        "\t\"info\": \"$4\"",
+        "},$5"
+      ]
+    },
+    "_font": {
+      "prefix": "_font",
+      "body": [
+        "{",
+        "\t\"type\": \"font_picker\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"info\": \"$3\",",
+        "\t\"default\": \"${4|Font1,Font2|}\"",
+        "},$5"
+      ]
+    },
+    "_collections": {
+      "prefix": "_collections",
+      "body": [
+        "{",
+        "\t\"type\": \"collection\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"info\": \"$3\"",
+        "},$4"
+      ]
+    },
+    "_product": {
+      "prefix": "_product",
+      "body": [
+        "{",
+        "\t\"type\": \"product\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"info\": \"$3\"",
+        "},$4"
+      ]
+    },
+    "_blog": {
+      "prefix": "_blog",
+      "body": [
+        "{",
+        "\t\"type\": \"blog\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"info\": \"$3\"",
+        "},$4"
+      ]
+    },
+    "_page": {
+      "prefix": "_page",
+      "body": [
+        "{",
+        "\t\"type\": \"page\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"info\": \"$3\"",
+        "},$4"
+      ]
+    },
+    "_link_list": {
+      "prefix": "_link_list",
+      "body": [
+        "{",
+        "\t\"type\": \"link_list\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"info\": \"$3\"",
+        "},$4"
+      ]
+    },
+    "_url": {
+      "prefix": "_url",
+      "body": [
+        "{",
+        "\t\"type\": \"url\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"info\": \"$3\"",
+        "},$4"
+      ]
+    },
+    "_video": {
+      "prefix": "_video",
+      "body": [
+        "{",
+        "\t\"type\": \"video_url\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"accept\": [$7\"youtube\", \"vimeo\"],",
+        "\t\"default\": \"$3\",",
+        "\t\"info\": \"$4\",",
+        "\t\"placeholder\": \"$5\"",
+        "},$6"
+      ]
+    },
+    "_richtext": {
+      "prefix": "_richtext",
+      "body": [
+        "{",
+        "\t\"type\": \"richtext\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"default\": \"<p>$3</p>\"",
+        "},$4"
+      ]
+    },
+    "_html": {
+      "prefix": "_html",
+      "body": [
+        "{",
+        "\t\"type\": \"html\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"default\": \"<div>$3</div>\"",
+        "},$4"
+      ]
+    },
+    "_article": {
+      "prefix": "_article",
+      "body": [
+        "{",
+        "\t\"type\": \"article\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"info\": \"$3\"",
+        "},$4"
+      ]
+    },
+    "_header": {
+      "prefix": "_header",
+      "body": [
+        "{",
+        "\t\"type\": \"header\",",
+        "\t\"content\": \"$1\",",
+        "\t\"info\": \"$2\"",
+        "},$3"
+      ]
+    },
+    "_paragraph": {
+      "prefix": "_paragraph",
+      "body": [
+        "{",
+        "\t\"type\": \"paragraph\",",
+        "\t\"content\": \"$1\"",
+        "},$2"
+      ]
+    },
+    "_number": {
+      "prefix": "_number",
+      "body": [
+        "{",
+        "\t\"type\": \"number\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"default\": $3",
+        "},$4"
+      ]
+    },
+    "_collection_list": {
+      "prefix": "_collection_list",
+      "body": [
+        "{",
+        "\t\"type\": \"collection_list\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"limit\": $3",
+        "},$4"
+      ]
+    },
+    "_color_scheme": {
+      "prefix": "_color_scheme",
+      "body": [
+        "{",
+        "\t\"type\": \"color_scheme\",",
+        "\t\"id\": \"$1\",",
+        "\t\"default\": \"$2\",",
+        "\t\"label\": \"$3\"",
+        "},$4"
+      ]
+    },
+    "_metaobject": {
+      "prefix": "_metaobject",
+      "body": [
+        "{",
+        "\t\"type\": \"metaobject\",",
+        "\t\"id\": \"$1\",",
+        "\t\"label\": \"$2\",",
+        "\t\"metaobject_type\": \"$3\"",
+        "},$4"
+      ]
+    }
   }
 }

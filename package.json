@@ -1,0 +1,40 @@
+{
+  "name": "vscode-shopify-liquid-snippets-pro",
+  "version": "1.0.0",
+  "publisher": "daydream-studios",
+  "displayName": "Shopify Liquid Snippets Pro",
+  "description": "Professional-grade Shopify Liquid Template snippets with comprehensive coverage of filters, objects, and tags",
+  "icon": "shopify-icon.png",
+  "galleryBanner": {
+    "color": "#95BF47",
+    "theme": "light"
+  },
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "keywords": [
+    "snippets",
+    "liquid",
+    "shopify",
+    "theme",
+    "template"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/drewhawkins/vscode-shopify-liquid-snippets-pro",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drewhawkins/vscode-shopify-liquid-snippets-pro.git"
+  },
+  "bugs": "https://github.com/drewhawkins/vscode-shopify-liquid-snippets-pro/issues",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "liquid",
+        "path": "./snippets/liquid.json"
+      }
+    ]
+  }
+}
